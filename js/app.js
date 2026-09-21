@@ -28,11 +28,11 @@ async function iniciar(){
 
     }
 
-    actualizarBotonTema();
-
-    aplicarTamanoTexto();
-
     try{
+
+        actualizarBotonTema();
+
+        aplicarTamanoTexto();
 
         // 1. Datos
         await cargarDatos();
@@ -108,6 +108,8 @@ async function iniciar(){
 // -------------------------------------------------------
 
 function ocultarPantallaCarga(){
+
+    window.revistaLista = true;
 
     const pantalla = document.getElementById("pantalla-carga");
 

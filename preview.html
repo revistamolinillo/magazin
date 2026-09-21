@@ -74,6 +74,86 @@
 
     <div id="app"></div>
 
+    <!-- Vigilante de carga: si falta algún archivo o la carga se atasca,
+         lo explica en la pantalla de carga en vez de quedarse esperando -->
+    <script>
+        (function(){
+
+            var fallos = [];
+
+            window.addEventListener("error", function(evento){
+
+                var e = evento.target;
+
+                if(e && e.tagName === "SCRIPT" && e.getAttribute("src")){
+                    fallos.push(e.getAttribute("src"));
+                }
+
+            }, true);
+
+            function avisar(texto, detalle){
+
+                var pantalla = document.getElementById("pantalla-carga");
+
+                if(!pantalla || window.revistaLista) return;
+
+                pantalla.classList.add("con-error");
+
+                var t = pantalla.querySelector(".carga-texto");
+                var p = pantalla.querySelector(".carga-puntos");
+
+                if(t){
+                    t.textContent = texto;
+                    t.style.maxWidth = "28rem";
+                }
+
+                if(p){
+
+                    p.textContent = "";
+
+                    if(detalle){
+                        var d = document.createElement("p");
+                        d.textContent = detalle;
+                        d.style.cssText = "font-size:.85rem;opacity:.8;margin-bottom:1rem;overflow-wrap:anywhere;max-width:28rem";
+                        p.appendChild(d);
+                    }
+
+                    var b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "boton boton-primario";
+                    b.textContent = "Intentarlo de nuevo";
+                    b.onclick = function(){ window.location.reload(); };
+                    p.appendChild(b);
+
+                }
+
+            }
+
+            window.addEventListener("load", function(){
+
+                if(fallos.length){
+
+                    avisar(
+                        "Faltan archivos de la revista. Sube de nuevo la carpeta completa.",
+                        "No se han encontrado: " + fallos.join(", ")
+                    );
+
+                }
+
+            });
+
+            setTimeout(function(){
+
+                avisar(
+                    "La revista está tardando más de lo normal. Comprueba tu conexión.",
+                    ""
+                );
+
+            }, 20000);
+
+        })();
+    </script>
+
     <script src="data/config.js"></script>
     <script src="data/estado.js"></script>
 

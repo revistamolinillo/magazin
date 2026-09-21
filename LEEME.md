@@ -4,6 +4,13 @@ Se sube igual que la anterior: copia todo el contenido de esta carpeta a tu host
 (GitHub Pages, etc.) sustituyendo los archivos. La carpeta `data/` (revista.json,
 hemeroteca.json, ediciones...) es la tuya, sin cambios.
 
+## Comprobación rápida tras subirlo
+La carpeta `js/` debe tener **10 archivos**: app.js, buscador.js, galeria.js, multimedia.js,
+navegacion.js, render.js, renderNoticias.js, renderPodcasts.js, utils.js, vistas.js.
+Si falta alguno, la pantalla de carga te dirá cuáles.
+Si ves una versión antigua: Ctrl+Shift+R, o en las herramientas del navegador
+(Application > Storage) "Clear site data".
+
 ## Qué tocar y dónde
 - `data/config.js`: correo de contacto, enlace de "Añadir noticia", Instagram
   (déjalo en "" hasta que exista el perfil), nombre del centro.
